@@ -44,7 +44,7 @@ const showAllPets = (pets) => {
     <hr />
 
     <div class="flex justify-center text-center gap-5">
-        <button onclick="addToList('${this},${pet.image}')" id="add-to-list" class="btn bg-white border-gray-300">
+        <button onclick="addToList('${pet.image}')" id="add-to-list" class="btn bg-white border-gray-300">
         <i class="fa-regular fa-thumbs-up"></i>
         </button>
         <button class="btn bg-white border-gray-300">Adopt</button>
@@ -57,10 +57,37 @@ const showAllPets = (pets) => {
 };
 
 // add to list button handler function
-const addToList = (btn, petImage) => {
+let hasSameImg = false;
+const addToList = (petImage) => {
   const likedImages = document.querySelector("#liked-images-container");
-  const div = document.createElement("div");
-  div.classList = "m-2";
-  div.innerHTML = `<img class="p-2 border border-gray-300 rounded-xl" src=${petImage}>`;
-  likedImages.appendChild(div);
+  checkAddedImage(petImage, likedImages);
+  if (!hasSameImg) {
+    const div = document.createElement("div");
+    div.classList = "m-2";
+    div.innerHTML = `<img class="p-2 border border-gray-300 rounded-xl" src=${petImage}>`;
+    likedImages.appendChild(div);
+  }
 };
+
+// check if allready added image
+const checkAddedImage = (imgUrl, imgContainer) => {
+  // imgContainer.querySelectorAll()
+  const addedImageDiv = imgContainer.querySelectorAll("div");
+  let founded = false;
+  addedImageDiv.forEach((imgDiv) => {
+    if (founded) {
+      return;
+    }
+    const allImageNodes = imgDiv.childNodes;
+    allImageNodes.forEach((img) => {
+      if (img.src === imgUrl) {
+        hasSameImg = true;
+        founded = true;
+      } else {
+        hasSameImg = false;
+        founded = false;
+      }
+    });
+  });
+};
+
