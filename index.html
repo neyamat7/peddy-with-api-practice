@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 6</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- daisyui cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- lato font cdn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- font awesome cdn -->
+    <script
+      src="https://kit.fontawesome.com/4a23607b33.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <header class="w-11/12 mx-auto">
+      <nav>
+        <div class="navbar bg-base-100">
+          <div class="navbar-start">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li><a>Home</a></li>
+                <li><a>Shop</a></li>
+                <li><a>Contact</a></li>
+              </ul>
+            </div>
+            <a class="text-2xl font-bold">
+              <i class="fa-solid fa-paw text-gray-500"></i> Peddy</a
+            >
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 text-[16px]">
+              <li><a>Home</a></li>
+              <li><a>Shop</a></li>
+              <li><a>Contact</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <a class="btn rounded-full bg-white shadow-none border-gray-200"
+              ><i class="fa-regular fa-user"></i
+            ></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="w-11/12 mx-auto">
+      <section class="my-12">
+        <div class="text-center">
+          <h3 class="text-xl text-gray-500 font-bold">
+            Bringing Families Together ❤️‍🔥
+          </h3>
+          <h1 class="text-5xl font-bold my-5">
+            Your Path to Adoption <br />
+            Starts Here
+          </h1>
+          <p class="my-5 lg:w-[650px] mx-auto">
+            Easily explore pets by category, including dogs, cats, rabbits, and
+            birds. Enjoy features like liking, adopting, and accessing detailed
+            pet information in a user-friendly interface.
+          </p>
+        </div>
+        <div class="text-center my-5">
+          <button
+            onclick="document.getElementById('adopt-section').scrollIntoView({behavior:'smooth'})"
+            class="btn bg-gray-500 text-white"
+          >
+            View More
+          </button>
+        </div>
+        <div class="flex justify-center items-center">
+          <img class="" src="./images/pet.webp" alt="" />
+        </div>
+      </section>
+
+      <!-- -------------------------------------------------------------- -->
+
+      <section id="adopt-section">
+        <div class="text-center">
+          <h1 class="text-4xl font-bold mt-5">Adopt Your Best Friend</h1>
+          <p class="text-gray-700 lg:w-[650px] mx-auto my-5">
+            Find and adopt your best friend with ease. Explore a wide range of
+            pets, discover their unique personalities, and bring home the
+            perfect companion to complete your family.
+          </p>
+        </div>
+        <div
+          id="categories"
+          class="grid grid-cols-2 lg:grid-cols-4 my-5 gap-3 flex lg:justify-between text-center"
+        ></div>
+        <div class="flex justify-between my-10">
+          <h2 class="text-xl font-bold">Best Deal For You</h2>
+          <button id="sort" class="btn bg-gray-500 text-white">
+            Sort By Price
+          </button>
+        </div>
+
+        <!-- here we showed our spinner -->
+        <div id="spinner" class="text-center hidden">
+          <span class="loading loading-bars loading-lg"></span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row lg:gap-5">
+          <div
+            id="show-all-pets-container"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-2 gap-3 border border-gray-200 rounded-xl lg:w-[70%]"
+          >
+            <!-- <div class="border border-gray-300 rounded-md">
+              <figure class="px-5 pt-5">
+                <img
+                  class="w-full object-cover rounded-xl"
+                  src="./images/pet-8.jpg"
+                  alt=""
+                  class="rounded-xl"
+                />
+              </figure>
+              <div class="card-body">
+                <h2 class="text-xl font-bold">Luna</h2>
+                <p>
+                  <i class="fa-solid fa-border-all"></i> Breed: Golden Retriever
+                </p>
+                <p><i class="fa-regular fa-calendar"></i> Birth: 2022-09-05</p>
+                <p><i class="fa-solid fa-mercury"></i> Gender: Female</p>
+                <p><i class="fa-solid fa-dollar-sign"></i> Price: $800</p>
+
+                <hr />
+
+                <div class="flex justify-center text-center gap-5">
+                  <button id="addToList" class="btn bg-white border-gray-300">
+                    <i class="fa-regular fa-thumbs-up"></i>
+                  </button>
+                  <button class="btn bg-white border-gray-300">Adopt</button>
+                  <button class="btn bg-white border-gray-300">Details</button>
+                </div>
+              </div> 
+            </div> -->
+          </div>
+          <div class="border border-gray-200 rounded-xl lg:w-[30%]">
+            <div
+              id="liked-images-container"
+              class="grid grid-cols-2 justify-around"
+            >
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Open the modal  -->
+    <div id="modal-container"></div>
+
+    <!-- open a modal for coundown -->
+    <div id="modal-countdown"></div>
+
+    <!-- -------------------------------------------------------------------------------------- -->
+
+    <footer
+      class="footer bg-black p-10 flex flex-col lg:flex-row md:flex-row justify-around mt-12"
+    >
+      <div>
+        <h1 class="font-bold text-3xl text-white my-5">
+          <i class="fa-solid fa-paw text-gray-500"></i> Peddy
+        </h1>
+        <div class="text-gray-300 space-y-3">
+          <p>Location: av. Washington 165, NY CA 54003</p>
+          <p>Phone: +31 85 964 47 25</p>
+          <p>Email: ahsanistiaq23@gmail.com</p>
+          <p>Openings hours: 9.00 AM - 5.00 PM</p>
+          <div class="w-10 h-10 flex gap-5 my-5">
+            <img
+              src="https://img.icons8.com/?size=100&id=p62ASPK2Kpqp&format=png&color=000000"
+              alt=""
+            />
+            <img
+              src="https://img.icons8.com/?size=100&id=yoQabS8l0qpr&format=png&color=000000"
+              alt=""
+            />
+            <img
+              src="https://img.icons8.com/?size=100&id=9a46bTk3awwI&format=png&color=000000"
+              alt=""
+            />
+            <img
+              src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <h6 class="text-lg font-semibold text-gray-200 my-5">Useful Links</h6>
+        <div class="text-gray-400 space-y-3 grid grid-cols-1">
+          <a class="link link-hover">About us</a>
+          <a class="link link-hover">Contact</a>
+          <a class="link link-hover">Jobs</a>
+          <a class="link link-hover">Press kit</a>
+        </div>
+      </div>
+      <div>
+        <h6 class="text-lg font-semibold text-gray-200 my-5">Drop a Message</h6>
+        <div class="space-y-3">
+          <label
+            class="input input-bordered flex items-center gap-2 bg-stone-800 text-white"
+          >
+            <input type="text" class="grow" placeholder="Enter Your Email" />
+          </label>
+          <a href="https://www.youtube.com/channel/UC0JEYL5rKB69wtzOJK8-u7A"
+            ><button class="btn mt-3 w-52 bg-gray-500 text-white border-none">
+              Subscribe
+            </button></a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- <script src="./js/index.js"></script> -->
+    <script src="./js/app.js"></script>
+  </body>
+</html>
