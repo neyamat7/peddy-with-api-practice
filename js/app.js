@@ -5,7 +5,6 @@ const addToListBtn = document.querySelector("#add-to-list");
 const showCategoriesContainer = document.querySelector("#show-categories");
 
 // show all pets handler
-
 const getPetsData = async () => {
   const response = await fetch(petsURL);
   const data = await response.json();
@@ -68,7 +67,7 @@ its layout. The point of using Lorem Ipsum is that it has a.</p>
 };
 
 // show all pets function
-const showAllPets = (pets) => { 
+const showAllPets = (pets) => {
   pets.forEach((pet) => {
     const div = document.createElement("div");
     div.classList.add("border", "border-gray-300", "rounded-md");
@@ -96,8 +95,8 @@ const showAllPets = (pets) => {
         <button onclick="addToList('${pet.image}')" id="add-to-list" class="btn bg-white border-gray-300">
         <i class="fa-regular fa-thumbs-up"></i>
         </button>
-        <button class="btn bg-white border-gray-300">Adopt</button>
-        <button onclick="showDetailsModal('${pet.image}')" class="btn bg-white border-gray-300">Details</button>
+        <button onclick="modalCountdown(this)" class="btn bg-white border-gray-300">Adopt</button>
+        <button onclick="getPetDetails('${pet.petId}')" class="btn bg-white border-gray-300">Details</button>
     </div>
     </div>
     `;
@@ -140,8 +139,98 @@ const checkAddedImage = (imgUrl, imgContainer) => {
   });
 };
 
+// get pet details by id
+const getPetDetails = async (petId) => {
+  const response = await fetch(
+    `https://openapi.programming-hero.com/api/peddy/pet/${petId}`
+  );
+  const data = await response.json();
+  showDetailsModal(data.petData);
+};
 
 // details modal show
-const showDetailsModal = (petImage) => {
-    console.log(petImage);
+const showDetailsModal = (petData) => {
+  const modalContainer = document.querySelector("#modal-container");
+  modalContainer.innerHTML = "";
+  const modalDiv = document.createElement("div");
+  modalDiv.innerHTML = `
+    <dialog id="my_modal_1" class="modal">
+        <div class="modal-box">
+            
+        <div>
+            <img class="object-cover w-full rounded-xl" src=${petData.image} alt="" />
+        </div>
+        <div class="my-5">
+            <h2 class="text-xl font-bold">${petData.pet_name}</h2>
+                    <div class="grid grid-cols-2">
+                            <p><i class="fa-solid fa-border-all"></i> Breed: ${petData.breed}</p>
+                            <p><i class="fa-solid fa-mercury"></i> Gender: ${petData.gender}</p>
+                            <p><i class="fa-solid fa-mercury"></i> Vaccinated Status: ${petData.vaccinated_status}</p>
+                            <p><i class="fa-regular fa-calendar"></i> Birth: ${petData.date_of_birth}</p>
+                            <p><i class="fa-solid fa-dollar-sign"></i> Price: ${petData.price} $</p>
+                    </div>        
+        </div>
+        <hr />
+        <div class="my-5">
+        <h2 class="text-xl font-bold">Details Information</h2>
+        <p>${petData.pet_details}</p>
+        </div>
+            <div class="modal-action justify-center">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn w-80 lg:w-96">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+    `;
+  modalContainer.append(modalDiv);
+  document.querySelector("#my_modal_1").showModal();
+};
+
+
+// countDownModal
+
+const modalCountdown = (btn) => {
+  const countdown = document.getElementById("modal-countdown");
+
+
+  const div = document.createElement("div");
+  div.innerHTML = `
+  
+<dialog id="my_modal_2" class="modal flex justify-center items-center">
+<div class="modal-box space-y-3 text-center">
+<img class="mx-auto" src="https://img.icons8.com/?size=100&id=q6BlPrJZmxHV&format=png&color=000000" alt="" />
+  <h3 class="text-2xl font-bold">Congrates</h3>
+  <p class="text-xl">Adoption Process is Start For your Pet</p>
+  <p id="countdown-display" class="py-4 font-bold text-5xl"></p>
+</div>
+<form method="dialog">
+  
+</form>
+</dialog>
+  `
+  countdown.append(div);
+
+  my_modal_2.showModal();
+
+  let countStart = 3;
+  const countDisplay = document.querySelector("#countdown-display");
+  countDisplay.innerHTML = `${countStart}`;
+
+  const interval = setInterval(() => {
+
+      if (countStart > 1) {
+          countStart--;
+          countDisplay.innerHTML = `${countStart}`;
+      }
+      else {
+          clearInterval(interval);
+          countdown.innerHTML = "";
+          btn.innerHTML = "Adopted";
+          btn.disabled = "true";
+      }
+  }, 1000);
+
+
 }
